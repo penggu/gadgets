@@ -86,11 +86,14 @@ m = (c^d) mod n = (c ** 7) % 77
 
 
 def generate_key_pairs():
-    p = 11
-    q = 7
+    p, q = 653, 733
     n = p * q
-    e = 43
-    d = 7
+    phi_n = (p-1) * (q-1)
+    e = 232735
+    d = 607
+    while (e * d) % phi_n != 1:
+        d += 1
+
     private_key = (n, d)
     public_key = (n, e)
     return private_key, public_key
@@ -113,7 +116,7 @@ def get_integer_in_range(low, high) -> int:
 
 
 def get_large_integer() -> int:
-    ans = get_integer_in_range(53, 53)
+    ans = get_integer_in_range(16127, 16127)
     debug(f'large integer value is {ans}')
     return ans
 
@@ -161,16 +164,16 @@ def main():
     debug(f'before mod operation: z = {z}')
 
     # Step 3.3 and then mod with a large prime number
-    large_prime_number = 17  # or 1111111111111111111  # or use 4999 :)
+    large_prime_number = 4999  # or 1111111111111111111 :)
     z = [zu % large_prime_number for zu in z]
-    debug(f'after mod operation:  z = {z}')
+    debug(f'after mod {large_prime_number} operation: z = {z}')
 
     # Step 3.4 millionaire A add 1 to all boxes in inclusive range
     # [i+1, money_high], and then send the sequence back to millionaire B
     for index in range(i - money_low + 1, money_range):
         z[index] += 1
-    debug(f'after "+1" operation: z = {z}')
-    print(f'A send to B: {z}')
+    debug(f'after "+1" operation:     z = {z}')
+    print(f'A send to B: {z}, {large_prime_number}')
 
     # Step 4 millionaire B get z and only look at his own box,
     # and figure out if it was added by 1
