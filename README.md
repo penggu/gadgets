@@ -1,2 +1,2 @@
 # gadgets
-Small tools coming from personal hobby
+Small tools for personal hobby
